@@ -1,0 +1,24 @@
+<mat-card class="bowling-scoreboard">
+  <mat-card-title class="scoreboard-title">Bowling Scoreboard</mat-card-title>
+
+  <mat-grid-list cols="10" rowHeight="120px" gutterSize="8px">
+    @for (frame of frames(); track frame; let frameIndex = $index) {
+      <mat-grid-tile class="frame">
+        <div class="frame-number">Frame {{ frameIndex + 1 }}</div>
+        <div class="rolls">
+          @for (roll of frame; track roll; let rollIndex = $index) {
+            <span 
+              class="roll" 
+              [class.spare]="isSpare(frame, rollIndex, roll)" 
+              [class.strike]="isStrike(roll)"
+            >
+              {{ displayRoll(frame, roll, rollIndex, frameIndex) }}
+            </span>
+          }
+        </div>
+      </mat-grid-tile>
+    }
+  </mat-grid-list>
+
+  <mat-card-content class="total-score">Total Score: {{ totalScore() }}</mat-card-content>
+</mat-card>

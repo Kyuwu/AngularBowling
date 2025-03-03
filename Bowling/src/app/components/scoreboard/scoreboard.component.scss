@@ -1,0 +1,60 @@
+.bowling-scoreboard {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.scoreboard-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.frame {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.frame-number {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.rolls {
+  display: flex;
+  gap: 5px;
+}
+
+.roll {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.strike {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.spare {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.total-score {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
