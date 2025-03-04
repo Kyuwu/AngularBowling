@@ -32,6 +32,7 @@ export class GameService implements OnDestroy {
     let pinsKnockedDown = Math.floor(Math.random() * (remainingPins + 1));
     this.roll(pinsKnockedDown);
   }
+  
 
   roll(pins: number) {
     console.log(`Rolled: ${pins}`);

@@ -28,21 +28,9 @@ import { PlayerDialogComponent } from '../../player-dialog/player-dialog.compone
 ]
 })
 export class GameComponent {
-  rolledPins = signal<number | null>(null);
-  showAnimation = signal(false);
   playerService = inject(PlayerService);
 
-  constructor(private gameService: GameService, private dialog: MatDialog) {}
-  
-  rollBall() {
-    const pins = Math.floor(Math.random() * 11); // Simulate random roll
-    this.gameService.roll(pins);
-
-    this.rolledPins.set(pins);
-    this.showAnimation.set(true);
-
-    setTimeout(() => this.showAnimation.set(false), 1500); // Hide after animation
-  }
+  constructor(private dialog: MatDialog) {}
 
   openDialog() {
     this.dialog.open(PlayerDialogComponent);

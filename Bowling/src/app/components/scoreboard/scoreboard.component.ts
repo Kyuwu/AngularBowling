@@ -37,7 +37,11 @@ export class ScoreboardComponent {
     return this.gameService.displayRoll(frame, roll, rollIndex, frameIndex);
   }
 
-  throwBall() {
+  throwBallRandom() {
     this.gameService.rollRandom();
+  }
+
+  throwBallNumber(number: number) {
+    this.gameService.roll(number);
   }
 }

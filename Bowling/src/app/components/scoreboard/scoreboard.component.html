@@ -1,30 +1,46 @@
 <div class="scoreboard">
   @for (frame of frames(); track frame; let frameIndex = $index) {
-  <div class="frame">
-    <div class="frame-container">
-      <div class="rolls">
+    <div class="frame">
+      <div class="frame-container">
+        <div class="rolls">
 
-        <!-- Normal Frame -->
-        @for (roll of frame; track roll; let rollIndex = $index) {
-        <span class="roll">
-          {{ displayRoll(frame, roll, rollIndex, frameIndex) }}
-        </span>
-        }
+          <!-- Normal Frame -->
+          @for (roll of frame; track roll; let rollIndex = $index) {
+            <span class="roll">
+              {{ displayRoll(frame, roll, rollIndex, frameIndex) }}
+            </span>
+          }
 
-      </div>
-      <div class="cumulative-score">
-        {{ cumulativeScores()[frameIndex] || '' }}
+        </div>
+        <div class="cumulative-score">
+          {{ cumulativeScores()[frameIndex] || '' }}
+        </div>
       </div>
     </div>
-  </div>
   }
 </div>
 <mat-card>
-  <mat-card-title>Throw Ball</mat-card-title>
+  <mat-card-title>Throw</mat-card-title>
+  <div class="button-container">
+    @for (num of [0,1,2,3,4,5,6,7,8,9,10]; track num) {
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="throwBallNumber(num)"
+        >
+        {{ num }}
+      </button>
+    }
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="throwBallRandom()"
+        >
+        Random
+      </button>
+  </div>
   <mat-card-content>
-    <button mat-raised-button color="accent" (click)="throwBall()">
-      Throw
-    </button>
+
   </mat-card-content>
-  
 </mat-card>
+
