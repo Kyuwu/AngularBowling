@@ -1,9 +1,22 @@
 <div class="game-container">
-  <mat-card class="scoreboard-card">
-    <app-scoreboard></app-scoreboard>
+
+  <div class="scoreboards">
+    <div class="bowling-scoreboard">
+      <h2 class="scoreboard-title">Bowling Scoreboard</h2>
+
+      @for (player of playerService.players(); track player; let i = $index) {
+        <mat-card class="scoreboard-card">
+          <h3>{{ player.name }}</h3>
+          <app-scoreboard [player]></app-scoreboard>
+        </mat-card>
+      }
+    </div>
+  </div>
+
+  <mat-card class="admin-menu">
+    <div class="player-controls">
+      <button mat-raised-button color="accent" (click)="openDialog()">Player menu</button>
+    </div>
   </mat-card>
 
-  <mat-card class="pin-selector-card">
-    <app-throw-ball></app-throw-ball>
-  </mat-card>
 </div>

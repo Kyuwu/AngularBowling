@@ -1,60 +1,55 @@
-.bowling-scoreboard {
-  width: 90%;
-  max-width: 1200px;
-  margin: 20px auto;
-}
-
-.scoreboard-title {
-  text-align: center;
-  margin-bottom: 20px;
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 2px;
+  border: 2px solid black;
 }
 
 .frame {
-  border: 1px solid #ccc;
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 10px;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding: 5px;
 }
 
-.frame-number {
-  font-weight: bold;
-  margin-bottom: 5px;
+.frame-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .rolls {
   display: flex;
-  gap: 5px;
+  gap: 4px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid black;
+  padding: 2px;
 }
 
 .roll {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  border: 1px solid black;
+  padding: 2px;
 }
 
 .strike {
-  background-color: #007bff;
-  color: white;
-  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: red;
 }
 
-.spare {
-  background-color: #28a745;
-  color: white;
-  border: none;
+.cumulative-score {
+  margin-top: 5px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .total-score {
-  text-align: center;
-  font-size: 18px;
+  margin-top: 10px;
+  font-size: 22px;
   font-weight: bold;
-  margin-top: 20px;
 }
