@@ -1,0 +1,39 @@
+.bowling-lane {
+  width: 200px; // Wider lane for better visibility
+  height: 500px;
+  background: linear-gradient(to bottom, #8b4513, #deb887); // Wood-like gradient for lane
+  border: 5px solid rgb(0, 0, 0);
+  position: relative;
+  overflow: hidden;
+  border-radius: 0; // Remove rounding for a flat lane
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+  .lane-surface {
+    width: 100%;
+    height: 100%;
+    background: url('../../../assets/bowling-floor.jpg') repeat; // Optional: Use a wood texture image
+    opacity: 0.8;
+  }
+
+  .pins {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    --remaining-pins: 10; // CSS custom property for dynamic pins
+
+    .pin-layout {
+      display: block;
+    }
+
+    circle {
+      transition: opacity 0.3s ease;
+      opacity: 1;
+
+      &[style*='display: none'] {
+        opacity: 0;
+      }
+    }
+  }
+}

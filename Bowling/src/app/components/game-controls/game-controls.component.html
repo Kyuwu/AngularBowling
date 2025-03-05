@@ -1,10 +1,11 @@
 <div class="game-controls-container">
   <div *ngIf="!gameStarted()">
     <h2>Start a New Game</h2>
+
     <mat-form-field appearance="fill">
       <mat-label>Number of Players</mat-label>
       <mat-select [(ngModel)]="numPlayers">
-        <mat-option *ngFor="let num of [1, 2, 3, 4 ]" [value]="num">
+        <mat-option *ngFor="let num of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="num">
           {{ num }}
         </mat-option>
       </mat-select>
@@ -16,26 +17,21 @@
         <input matInput [(ngModel)]="playerNames()[i]" placeholder="Enter name" />
       </mat-form-field>
     </div>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="startGame()"
-      [disabled]="!allNamesFilled()"
-    >
+
+    <button mat-raised-button color="primary" (click)="startGame()" [disabled]="!allNamesFilled()">
       Start Game
     </button>
   </div>
 
   <div *ngIf="gameStarted() && !gameOver()">
     <h2>{{ currentPlayer()?.name }}'s Turn (Frame {{ currentFrame() }})</h2>
+
+    <app-bowling-field [remainingPins]="remainingPins()"></app-bowling-field>
+
     <p>Remaining Pins: {{ remainingPins() }}</p>
+
     <div class="roll-buttons">
-      <button
-        mat-raised-button
-        *ngFor="let pins of possiblePins"
-        (click)="roll(pins)"
-        [disabled]="isRollDisabled(pins)"
-      >
+      <button mat-raised-button *ngFor="let pins of possiblePins" (click)="roll(pins)" [disabled]="isRollDisabled(pins)">
         {{ pins }}
       </button>
     </div>
@@ -43,6 +39,7 @@
 
   <div *ngIf="gameOver()">
     <h2>Game Over!</h2>
+
     <button mat-raised-button color="primary" (click)="resetGame()">
       Play Again
     </button>

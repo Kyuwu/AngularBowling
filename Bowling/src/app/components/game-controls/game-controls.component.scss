@@ -22,3 +22,17 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+// Existing styles remain unchanged...
+
+.strike-snackbar {
+  background-color: #4caf50; // Green for strike
+  color: white;
+  font-weight: bold;
+}
+
+.spare-snackbar {
+  background-color: #2196f3; // Blue for spare
+  color: white;
+  font-weight: bold;
+}

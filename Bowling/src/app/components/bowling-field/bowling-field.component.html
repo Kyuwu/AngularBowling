@@ -1,0 +1,17 @@
+<div class="bowling-lane">
+  <div class="lane-surface"></div>
+  <div class="pins rotated-pins" [style.--remaining-pins]="remainingPins()">
+    <svg width="400" height="200" class="pin-layout">
+      <circle *ngIf="remainingPins() >= 10" cx="200" cy="150" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 9" cx="220" cy="120" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 8" cx="180" cy="120" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 7" cx="240" cy="90" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 6" cx="200" cy="90" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 5" cx="160" cy="90" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 4" cx="260" cy="60" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 3" cx="220" cy="60" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 2" cx="180" cy="60" r="10" fill="white" />
+      <circle *ngIf="remainingPins() >= 1" cx="140" cy="60" r="10" fill="white" />
+    </svg>
+  </div>
+</div>
