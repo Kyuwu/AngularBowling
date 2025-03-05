@@ -7,7 +7,8 @@
 
     @for (frame of frames(); track frame; let i = $index) {
       <ng-container [matColumnDef]="'frame' + (i + 1)">
-        <th mat-header-cell *matHeaderCellDef>Frame {{ i + 1 }}</th>
+        <!-- frames, calling it rounds for ease -->
+        <th mat-header-cell *matHeaderCellDef>Round {{ i + 1 }}</th>
         <td mat-cell *matCellDef="let player">
           <div class="frame-cell">
             <div class="rolls">

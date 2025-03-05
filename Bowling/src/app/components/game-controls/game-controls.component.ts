@@ -117,7 +117,7 @@ export class GameControlsComponent {
   // Update component state based on game service
   private updateState(): void {
     this.currentPlayer.set(this.gameService.getCurrentPlayer()());
-    this.currentFrame.set(this.gameService.getCurrentFrame());
+    this.currentFrame.set(this.gameService.getCurrentFrame()());
     this.remainingPins.set(this.gameStarted() ? this.gameService.getRemainingPins() ?? 10 : 10);
     console.log('Current Player:', this.currentPlayer());
     console.log('Current Frame:', this.currentFrame());
