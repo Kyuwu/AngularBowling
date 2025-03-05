@@ -1,10 +1,10 @@
 import { Component, signal, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-bowling-field',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './bowling-field.component.html',
   styleUrls: ['./bowling-field.component.scss'],
 })

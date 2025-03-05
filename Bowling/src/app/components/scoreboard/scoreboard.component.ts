@@ -1,13 +1,13 @@
 import { Component, signal, effect } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
+
 import { Player, Frame } from '../../interfaces/bowling';
 import { BowlingGameService } from '../../services/bowling-game.service';
 
 @Component({
   selector: 'app-scoreboard',
   standalone: true,
-  imports: [CommonModule, MatTableModule],
+  imports: [MatTableModule],
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.scss'],
 })

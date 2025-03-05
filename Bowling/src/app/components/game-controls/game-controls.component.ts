@@ -1,5 +1,5 @@
 import { Component, signal, computed, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,14 +13,13 @@ import { BowlingFieldComponent } from '../bowling-field/bowling-field.component'
   selector: 'app-game-controls',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    BowlingFieldComponent,
-  ],
+    BowlingFieldComponent
+],
   templateUrl: './game-controls.component.html',
   styleUrls: ['./game-controls.component.scss'],
 })
@@ -92,7 +91,6 @@ export class GameControlsComponent {
     if (pins > this.remainingPins()) return;
 
     this.gameService.roll(pins);
-    this.checkForStrikeOrSpare(); // Check for strike or spare after roll
     this.updateState();
     if (this.gameService.isGameOver()) {
       this.gameOver.set(true);
@@ -124,31 +122,5 @@ export class GameControlsComponent {
     console.log('Current Player:', this.currentPlayer());
     console.log('Current Frame:', this.currentFrame());
     console.log('Remaining Pins:', this.remainingPins());
-  }
-
-  // Check for strikes or spares and show notifications
-  private checkForStrikeOrSpare(): void {
-    const currentPlayer = this.gameService.getCurrentPlayer()();
-    const currentFrameIndex = this.currentFrame() - 1;
-    const currentFrame = currentPlayer.frames[currentFrameIndex];
-    console.log('Checking for strike or spare - Frame:', currentFrameIndex + 1, 'State:', currentFrame);
-
-    if (currentFrame.isStrike) {
-      console.log('Detected strike in frame', currentFrameIndex + 1, '- Showing snackbar');
-      this.showSnackbar('Strike!', 'strike-snackbar');
-    } else if (currentFrame.isSpare) {
-      console.log('Detected spare in frame', currentFrameIndex + 1, '- Showing snackbar');
-      this.showSnackbar('Spare!', 'spare-snackbar');
-    }
-  }
-
-  // Helper method to show snackbar notifications
-  private showSnackbar(message: string, panelClass: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 2000, // Show for 2 seconds
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: [panelClass], // Custom CSS class for styling
-    });
   }
 }
