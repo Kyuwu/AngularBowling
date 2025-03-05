@@ -1,56 +1,47 @@
 .scoreboard-container {
   margin: 20px;
+  background: #f5f5dc; // Parchment-like background for old-school feel
+  border: 2px solid #8b4513; // Dark brown border for retro look
+  padding: 10px;
 }
 
 table {
   width: 100%;
-}
-
-.frame-cell {
-  height: 60px; // Fixed height for consistent layout
-  position: relative; // Allow absolute positioning of children
-  padding: 5px;
-  border: 1px solid #ccc; // Optional: for visual separation
-  box-sizing: border-box;
-}
-
-.rolls {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 66.67%; // Top right 2/3 of the cell
-  height: 66.67%; // Top 2/3 of the height
-  text-align: right;
-  padding-right: 5px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.rolls span {
-  margin-left: 2px; // Space between rolls
-}
-
-.score {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-  padding: 2px;
-}
-
-.split {
-  color: red; // Highlight splits in red
-}
-
-.gutter {
-  color: #888; // Style gutters in gray or another color
+  border-collapse: collapse; // Remove double borders for clean grid
+  font-family: 'Courier New', Courier, monospace; // Retro monospace font
+  font-size: 14px;
+  color: #333; // Dark text for readability
 }
 
 th, td {
-  padding: 8px;
+  border: 1px solid #8b4513; // Brown borders for old-school grid
+  padding: 5px;
   text-align: center;
+}
+
+.frame-cell {
+  height: 50px; // Simplified fixed height
+  padding: 2px;
+  border: none; // Remove individual cell borders (handled by table)
+}
+
+.rolls {
+  text-align: right;
+  font-weight: bold; // Bold for emphasis, old-school style
+  padding-right: 5px;
+  color: #000; // Black for rolls, clear and classic
+}
+
+.score {
+  text-align: center;
+  font-weight: bold; // Bold for scores, old-school emphasis
+  color: #000; // Black for scores, consistent with rolls
+}
+
+.split {
+  color: red; // Highlight splits in red, keeping retro contrast
+}
+
+.gutter {
+  color: #888; // Gray for gutters, subtle but visible
 }

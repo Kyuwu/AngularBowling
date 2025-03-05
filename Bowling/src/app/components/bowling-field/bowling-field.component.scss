@@ -1,39 +1,34 @@
 .bowling-lane {
-  width: 200px; // Wider lane for better visibility
-  height: 500px;
-  background: linear-gradient(to bottom, #8b4513, #deb887); // Wood-like gradient for lane
-  border: 5px solid rgb(0, 0, 0);
+  width: 200px; // Fixed width for a compact, retro lane
+  height: 500px; // Tall height for a classic lane feel
+  background: #f5f5dc; // Parchment-like background for old-school feel
+  border: 2px solid #8b4513; // Dark brown border for retro wood look
   position: relative;
-  overflow: hidden;
-  border-radius: 0; // Remove rounding for a flat lane
-  margin: 20px auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin: 20px auto; // Center the lane
+  padding: 10px; // Simple padding for spacing
+  font-family: 'Courier New', Courier, monospace; // Retro monospace font
+}
 
-  .lane-surface {
-    width: 100%;
-    height: 100%;
-    background: url('../../../assets/bowling-floor.jpg') repeat; // Optional: Use a wood texture image
-    opacity: 0.8;
+.lane-surface {
+  width: 100%;
+  height: 100%;
+  background: url('../../../assets/bowling-floor.jpg') repeat; // Wood texture for lane
+  opacity: 0.8; // Subtle transparency for vintage effect
+}
+
+.pins {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%); // Center pins horizontally
+  --remaining-pins: 10; // CSS custom property for dynamic pins
+
+  .pin-layout {
+    display: block;
   }
 
-  .pins {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    --remaining-pins: 10; // CSS custom property for dynamic pins
-
-    .pin-layout {
-      display: block;
-    }
-
-    circle {
-      transition: opacity 0.3s ease;
-      opacity: 1;
-
-      &[style*='display: none'] {
-        opacity: 0;
-      }
-    }
+  circle {
+    fill: white; // White pins for classic look
+    r: 10; // Fixed radius for pins
   }
 }

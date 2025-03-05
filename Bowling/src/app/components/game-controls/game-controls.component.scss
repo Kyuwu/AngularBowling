@@ -1,38 +1,30 @@
 .game-controls-container {
-  text-align: center;
+  margin: 0 auto;
   padding: 20px;
-}
+  text-align: center;
 
-.player-input {
-  margin-bottom: 10px;
-}
+  .player-inputs {
+    display: flex;
+    justify-content: center; // Center-align inputs horizontally
+    flex-wrap: wrap; // Allow wrapping on smaller screens
+    gap: 10px; // Spacing between inputs
+    margin: 10px 0; // Vertical margin for spacing
 
-.roll-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+    .player-input {
+      mat-form-field {
+        width: 200px; // Default width, but flexible due to flex-wrap
+      }
+    }
+  }
 
-button {
-  margin: 5px;
-}
+  .roll-buttons {
+    display: flex;
+    justify-content: center; // Center-align roll buttons
+    gap: 10px;
+    margin: 10px 0;
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-// Existing styles remain unchanged...
-
-.strike-snackbar {
-  background-color: #4caf50; // Green for strike
-  color: white;
-  font-weight: bold;
-}
-
-.spare-snackbar {
-  background-color: #2196f3; // Blue for spare
-  color: white;
-  font-weight: bold;
+    button {
+      width: 60px; // Fixed width for roll buttons
+    }
+  }
 }

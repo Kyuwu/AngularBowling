@@ -1,10 +1,11 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BowlingGameService } from '../../services/bowling-game.service';
 import { BowlingFieldComponent } from '../bowling-field/bowling-field.component';
 
@@ -24,73 +25,81 @@ import { BowlingFieldComponent } from '../bowling-field/bowling-field.component'
   styleUrls: ['./game-controls.component.scss'],
 })
 export class GameControlsComponent {
-  // Private signal to store the number of players. Using a private signal
-  // enforces encapsulation, preventing direct external modification.
+  // Private signal for the number of players, ensuring encapsulation
   private _numPlayers = signal(4);
 
-  // Computed property to generate player names based on the number of players.
-  // Computed properties are used for derived data, ensuring that the names
-  // are automatically updated when _numPlayers changes.
-  playerNames = computed(() =>
-    Array.from({ length: this._numPlayers() }, (_, i) => `Player ${i + 1}`)
+  // Direct signal for player names, handling raw input for two-way binding
+  playerNames = signal<string[]>(Array.from({ length: 4 }, () => ''));
+
+  // Computed signal for displaying player names with defaults (e.g., "Player 1")
+  displayedPlayerNames = computed(() =>
+    this.playerNames().map((name, i) => name.trim() || `Player ${i + 1}`)
   );
 
-  // Signals to manage the game state. Signals are used for reactive state management,
-  // allowing the component to react to changes in these values.
+  // Signals for game state, using boolean and number types for clarity
   gameStarted = signal(false);
   gameOver = signal(false);
-  currentPlayer = signal<any>(null); // Using <any> here, consider creating a Player interface.
+  currentPlayer = signal<any>(null); // Consider creating a Player interface for type safety
   currentFrame = signal(1);
   remainingPins = signal(10);
 
-  // Array of possible pin counts for each roll.
+  // Array of possible pin counts for each roll
   possiblePins: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  // Inject the BowlingGameService for game logic.
-  constructor(private gameService: BowlingGameService) {
-    // Initialize the component state by calling updateState.
+  @ViewChild(BowlingFieldComponent) bowlingField!: BowlingFieldComponent;
+
+  constructor(
+    private gameService: BowlingGameService,
+    private snackBar: MatSnackBar // Inject MatSnackBar for notifications
+  ) {
     this.updateState();
+    this.syncPlayerNames(); // Sync player names with numPlayers on initialization
   }
 
-  // Getter for the number of players. Used for two-way data binding.
+  // Getter for two-way binding with numPlayers
   get numPlayers(): number {
     return this._numPlayers();
   }
 
-  // Setter for the number of players. Used for two-way data binding.
+  // Setter for two-way binding, updating player names
   set numPlayers(value: number) {
     this._numPlayers.set(value);
+    this.syncPlayerNames(); // Update player names when numPlayers changes
   }
 
-  // Check if all player names are filled.
-  // Using .every() is a clean and efficient way to check if all elements
-  // in an array satisfy a condition.
+  // Sync player names array with the number of players
+  private syncPlayerNames(): void {
+    const newNames = Array.from({ length: this._numPlayers() }, (_, i) =>
+      this.playerNames()[i] || ''
+    );
+    this.playerNames.set(newNames);
+  }
+
+  // Check if all player names are filled (non-empty after trimming)
   allNamesFilled(): boolean {
     return this.playerNames().every((name) => name.trim().length > 0);
   }
 
-  // Start the game by initializing the game service and updating the state.
+  // Start the game with player names
   startGame(): void {
     this.gameService.startGame(this.playerNames());
     this.gameStarted.set(true);
     this.updateState();
   }
 
-  // Handle a player's roll.
+  // Handle a player's roll
   roll(pins: number): void {
-    // Prevent rolling more pins than remaining. Early return to prevent unnecessary logic.
     if (pins > this.remainingPins()) return;
 
     this.gameService.roll(pins);
+    this.checkForStrikeOrSpare(); // Check for strike or spare after roll
     this.updateState();
-
-    // Check if the game is over and update the state accordingly.
     if (this.gameService.isGameOver()) {
       this.gameOver.set(true);
     }
   }
 
-  // Reset the game to its initial state.
+  // Reset the game to its initial state
   resetGame(): void {
     this.gameStarted.set(false);
     this.gameOver.set(false);
@@ -98,31 +107,48 @@ export class GameControlsComponent {
     this.currentPlayer.set(null);
     this.currentFrame.set(1);
     this.remainingPins.set(10);
-    this.gameService.startGame([]); // Reset the game service state.
+    this.playerNames.set([]); // Reset player names
+    this.gameService.startGame([]); // Reset the game service state
   }
 
-  // Check if a roll is disabled based on the remaining pins.
+  // Check if rolling is disabled (game not started, over, or no pins left)
   isRollDisabled(pins: number): boolean {
-    return pins > this.remainingPins();
+    return !this.gameStarted() || this.gameOver() || pins > this.remainingPins();
   }
 
-  // Update the component state based on the game service.
+  // Update component state based on game service
   private updateState(): void {
-    // Update the current player and frame from the game service.
     this.currentPlayer.set(this.gameService.getCurrentPlayer()());
-    this.currentFrame.set(this.gameService.getCurrentFrame()());
-
-    // Update the remaining pins, using the nullish coalescing operator (??)
-    // to default to 10 if getRemainingPins returns null or undefined.
-    // Ternary operator to set the value only when the game has started.
-    this.remainingPins.set(
-      this.gameStarted() ? this.gameService.getRemainingPins() ?? 10 : 10
-    );
-
-    // Logging the current state for debugging purposes.
-    // Consider removing or using a more robust logging mechanism in production.
+    this.currentFrame.set(this.gameService.getCurrentFrame());
+    this.remainingPins.set(this.gameStarted() ? this.gameService.getRemainingPins() ?? 10 : 10);
     console.log('Current Player:', this.currentPlayer());
     console.log('Current Frame:', this.currentFrame());
     console.log('Remaining Pins:', this.remainingPins());
+  }
+
+  // Check for strikes or spares and show notifications
+  private checkForStrikeOrSpare(): void {
+    const currentPlayer = this.gameService.getCurrentPlayer()();
+    const currentFrameIndex = this.currentFrame() - 1;
+    const currentFrame = currentPlayer.frames[currentFrameIndex];
+    console.log('Checking for strike or spare - Frame:', currentFrameIndex + 1, 'State:', currentFrame);
+
+    if (currentFrame.isStrike) {
+      console.log('Detected strike in frame', currentFrameIndex + 1, '- Showing snackbar');
+      this.showSnackbar('Strike!', 'strike-snackbar');
+    } else if (currentFrame.isSpare) {
+      console.log('Detected spare in frame', currentFrameIndex + 1, '- Showing snackbar');
+      this.showSnackbar('Spare!', 'spare-snackbar');
+    }
+  }
+
+  // Helper method to show snackbar notifications
+  private showSnackbar(message: string, panelClass: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000, // Show for 2 seconds
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: [panelClass], // Custom CSS class for styling
+    });
   }
 }
