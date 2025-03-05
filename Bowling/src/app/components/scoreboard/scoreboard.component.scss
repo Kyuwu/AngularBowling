@@ -1,55 +1,56 @@
-.scoreboard {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 2px;
-  border: 2px solid black;
+.scoreboard-container {
+  margin: 20px;
 }
 
-.frame {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid black;
+table {
+  width: 100%;
+}
+
+.frame-cell {
+  height: 60px; // Fixed height for consistent layout
+  position: relative; // Allow absolute positioning of children
   padding: 5px;
-}
-
-.frame-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border: 1px solid #ccc; // Optional: for visual separation
+  box-sizing: border-box;
 }
 
 .rolls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 66.67%; // Top right 2/3 of the cell
+  height: 66.67%; // Top 2/3 of the height
+  text-align: right;
+  padding-right: 5px;
+  font-size: 12px;
   display: flex;
-  gap: 4px;
-  font-size: 20px;
-  font-weight: bold;
-  border: 1px solid black;
-  padding: 2px;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.roll {
-  width: 20px;
+.rolls span {
+  margin-left: 2px; // Space between rolls
+}
+
+.score {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   text-align: center;
-  border: 1px solid black;
+  font-weight: bold;
   padding: 2px;
 }
 
-.strike {
-  font-size: 24px;
-  font-weight: bold;
-  color: red;
+.split {
+  color: red; // Highlight splits in red
 }
 
-.cumulative-score {
-  margin-top: 5px;
-  font-size: 18px;
-  font-weight: bold;
+.gutter {
+  color: #888; // Style gutters in gray or another color
 }
 
-.total-score {
-  margin-top: 10px;
-  font-size: 22px;
-  font-weight: bold;
+th, td {
+  padding: 8px;
+  text-align: center;
 }

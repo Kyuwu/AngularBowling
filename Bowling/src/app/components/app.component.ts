@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-import { GameComponent } from "./game/game.component";
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { GameControlsComponent } from './game-controls/game-controls.component';
 
 @Component({
   selector: 'app-root',
-  imports: [GameComponent],
+  standalone: true,
+  imports: [
+    MatToolbarModule,
+    ScoreboardComponent,
+    GameControlsComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'Bowling';
-}
+export class AppComponent {}

@@ -1,46 +1,36 @@
-<div class="scoreboard">
-  @for (frame of frames(); track frame; let frameIndex = $index) {
-    <div class="frame">
-      <div class="frame-container">
-        <div class="rolls">
+<div class="scoreboard-container">
+  <table mat-table [dataSource]="players()" class="mat-elevation-z8">
+    <!-- Player Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Player</th>
+      <td mat-cell *matCellDef="let player">{{ player.name || 'Unknown' }}</td>
+    </ng-container>
 
-          <!-- Normal Frame -->
-          @for (roll of frame; track roll; let rollIndex = $index) {
-            <span class="roll">
-              {{ displayRoll(frame, roll, rollIndex, frameIndex) }}
-            </span>
-          }
+    <!-- Frame Columns -->
+    <ng-container *ngFor="let frame of frames(); let i = index" [matColumnDef]="'frame' + (i + 1)">
+      <th mat-header-cell *matHeaderCellDef>Frame {{ i + 1 }}</th>
+      <td mat-cell *matCellDef="let player">
+        <div class="frame-cell">
+          <div class="rolls">
+            {{ displayRolls(player.frames[i]) }}
+          </div>
+          <div class="score">
+            {{ player.frames[i]?.runningTotal !== undefined ? player.frames[i].runningTotal : '-' }}
+          </div>
+        </div>
+      </td>
+    </ng-container>
 
-        </div>
-        <div class="cumulative-score">
-          {{ cumulativeScores()[frameIndex] || '' }}
-        </div>
-      </div>
-    </div>
-  }
+    <!-- Total Score Column -->
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Total</th>
+      <td mat-cell *matCellDef="let player">
+        {{ player.totalScore || 0 }}
+      </td>
+    </ng-container>
+
+    <!-- Define the header and row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns();"></tr>
+  </table>
 </div>
-<mat-card>
-  <mat-card-title>Throw</mat-card-title>
-  <div class="button-container">
-    @for (num of [0,1,2,3,4,5,6,7,8,9,10]; track num) {
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="throwBallNumber(num)"
-        >
-        {{ num }}
-      </button>
-    }
-    <button
-        mat-raised-button
-        color="primary"
-        (click)="throwBallRandom()"
-        >
-        Random
-      </button>
-  </div>
-  <mat-card-content>
-
-  </mat-card-content>
-</mat-card>
-
