@@ -1,59 +1,37 @@
-# Bowling
+# Retro Bowling Game README
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+## Overview
 
-## Development server
+This is a retro-styled bowling game built with Angular, featuring a vintage design inspired by classic bowling. The game allows multiple players to take turns rolling a ball, tracks scores, and displays a nostalgic scoreboard and bowling field.
 
-To start a local development server, run:
+## Components
 
-```bash
-ng serve
-```
+* **App Component:** Root component managing layout and hosting other components.
+* **Bowling Field Component:** Renders the bowling lane, pins, and ball animation.
+* **Game Controls Component:** Manages player inputs and game controls.
+* **Scoreboard Component:** Displays player scores and frame details.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Services
 
-## Code scaffolding
+* **Bowling Game Service:** Orchestrates overall game logic.
+* **Frame Service:** Manages individual frame logic and pin calculations.
+* **Game State Service:** Manages the game's state, including players and turns.
+* **Scoring Service:** Calculates and updates player scores.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Interfaces
 
-```bash
-ng generate component component-name
-```
+* **Bowling Interface:** Defines TypeScript interfaces for game entities like Player and Frame.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Global Styles and Assets
 
-```bash
-ng generate --help
-```
+* **Angular Theme SCSS:** Defines the Angular Material theme for a retro look.
+* **Global Styles SCSS:** Sets global styles for the app.
+* **Assets:** Includes images like the bowling lane texture.
 
-## Building
+## Getting Started
 
-To build the project run:
+1.  Clone the repository.
+2.  Install dependencies: `npm install`
+3.  Run the app: `ng serve`
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Open your browser to `http://localhost:4200`.
