@@ -20,7 +20,7 @@ This is a retro-styled bowling game built with Angular, featuring a vintage desi
 
 ## Interfaces
 
-* **Bowling Interface:** Defines TypeScript interfaces for game entities like Player and Frame.
+* **Bowling Interface:** Defines 2 TypeScript interfaces for game entities, Player and Frame.
 
 ## Global Styles and Assets
 
