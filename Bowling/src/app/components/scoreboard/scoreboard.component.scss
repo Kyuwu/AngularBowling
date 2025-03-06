@@ -1,47 +1,38 @@
 .scoreboard-container {
   margin: 20px;
-  background: #f5f5dc; // Parchment-like background for old-school feel
-  border: 2px solid #8b4513; // Dark brown border for retro look
+  background: #f5f5dc;
+  border: 2px solid #8b4513; 
   padding: 10px;
 }
 
 table {
   width: 100%;
-  border-collapse: collapse; // Remove double borders for clean grid
-  font-family: 'Courier New', Courier, monospace; // Retro monospace font
+  border-collapse: collapse; 
   font-size: 14px;
-  color: #333; // Dark text for readability
+  color: #333; 
 }
 
 th, td {
-  border: 1px solid #8b4513; // Brown borders for old-school grid
+  border: 1px solid #8b4513; 
   padding: 5px;
   text-align: center;
 }
 
 .frame-cell {
-  height: 50px; // Simplified fixed height
+  height: 50px;
   padding: 2px;
-  border: none; // Remove individual cell borders (handled by table)
+  border: none; 
 }
 
 .rolls {
   text-align: right;
-  font-weight: bold; // Bold for emphasis, old-school style
+  font-weight: bold;
   padding-right: 5px;
-  color: #000; // Black for rolls, clear and classic
+  color: #000;
 }
 
 .score {
   text-align: center;
-  font-weight: bold; // Bold for scores, old-school emphasis
-  color: #000; // Black for scores, consistent with rolls
-}
-
-.split {
-  color: red; // Highlight splits in red, keeping retro contrast
-}
-
-.gutter {
-  color: #888; // Gray for gutters, subtle but visible
+  font-weight: bold; 
+  color: #000;
 }

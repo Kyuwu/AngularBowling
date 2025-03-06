@@ -1,34 +1,33 @@
 .bowling-lane {
-  width: 200px; // Fixed width for a compact, retro lane
-  height: 500px; // Tall height for a classic lane feel
-  background: #f5f5dc; // Parchment-like background for old-school feel
-  border: 2px solid #8b4513; // Dark brown border for retro wood look
+  width: 200px;
+  height: 500px; 
+  background: #f5f5dc; 
+  border: 2px solid #8b4513; 
   position: relative;
-  margin: 20px auto; // Center the lane
-  padding: 10px; // Simple padding for spacing
-  font-family: 'Courier New', Courier, monospace; // Retro monospace font
+  margin: 20px auto; 
+  padding: 10px; 
 }
 
 .lane-surface {
   width: 100%;
   height: 100%;
-  background: url('../../../assets/bowling-floor.jpg') repeat; // Wood texture for lane
-  opacity: 0.8; // Subtle transparency for vintage effect
+  background: url('../../../assets/bowling-floor.jpg') repeat; 
+  opacity: 0.8; 
 }
 
 .pins {
   position: absolute;
   top: 20px;
   left: 50%;
-  transform: translateX(-50%); // Center pins horizontally
-  --remaining-pins: 10; // CSS custom property for dynamic pins
+  transform: translateX(-50%);
+  --remaining-pins: 10;
 
   .pin-layout {
     display: block;
   }
 
   circle {
-    fill: white; // White pins for classic look
-    r:15; // Fixed radius for pins
+    fill: white;
+    r:15;
   }
 }
