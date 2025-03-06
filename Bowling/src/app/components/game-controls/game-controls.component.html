@@ -14,15 +14,14 @@
     </mat-form-field>
     <div class="player-inputs">
       @if (displayedPlayerNames().length > 0) {
-
-      @for (name of displayedPlayerNames(); track name; let i = $index) {
-      <div class="player-input">
-        <mat-form-field appearance="fill">
-          <mat-label>{{ name }}</mat-label>
-          <input matInput [(ngModel)]="playerNames()[i]" placeholder="Enter name" />
-        </mat-form-field>
-      </div>
-      }
+        @for (name of displayedPlayerNames(); track name; let i = $index) {
+        <div class="player-input">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ name }}</mat-label>
+            <input matInput [(ngModel)]="playerNames()[i]" placeholder="Enter name" />
+          </mat-form-field>
+        </div>
+        }
       }
     </div>
     <button mat-raised-button color="primary" (click)="startGame()"

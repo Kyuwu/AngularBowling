@@ -1,11 +1,9 @@
 import { Component, signal, computed, ViewChild } from '@angular/core';
-
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { BowlingGameService } from '../../services/bowling-game.service';
 import { BowlingFieldComponent } from '../bowling-field/bowling-field.component';
 
@@ -49,7 +47,6 @@ export class GameControlsComponent {
 
   constructor(
     private gameService: BowlingGameService,
-    private snackBar: MatSnackBar // Inject MatSnackBar for notifications
   ) {
     this.updateState();
     this.syncPlayerNames(); // Sync player names with numPlayers on initialization
