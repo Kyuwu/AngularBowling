@@ -25,7 +25,7 @@ import { BowlingFieldComponent } from '../bowling-field/bowling-field.component'
 })
 export class GameControlsComponent {
   // Private signal for the number of players, ensuring encapsulation
-  private _numPlayers = signal(4);
+  private _numPlayers = signal(0);
 
   // Direct signal for player names, handling raw input for two-way binding
   playerNames = signal<string[]>(Array.from({ length: 4 }, () => ''));
@@ -86,11 +86,18 @@ export class GameControlsComponent {
     this.updateState();
   }
 
-  // Handle a player's roll
-  roll(pins: number): void {
-    if (pins > this.remainingPins()) return;
+  // Handle a players roll
+  roll(pins?: number): void {
+    let pinsToUse = pins;
+    const remainingPins = this.remainingPins();
 
-    this.gameService.roll(pins);
+    if (pinsToUse === undefined || pinsToUse === null) {
+      pinsToUse = Math.floor(Math.random() * (remainingPins + 1));
+    }
+
+    if (pinsToUse > remainingPins) return;
+
+    this.gameService.roll(pinsToUse);
     this.updateState();
     if (this.gameService.isGameOver()) {
       this.gameOver.set(true);
@@ -101,7 +108,7 @@ export class GameControlsComponent {
   resetGame(): void {
     this.gameStarted.set(false);
     this.gameOver.set(false);
-    this._numPlayers.set(4);
+    this._numPlayers.set(0);
     this.currentPlayer.set(null);
     this.currentFrame.set(1);
     this.remainingPins.set(10);

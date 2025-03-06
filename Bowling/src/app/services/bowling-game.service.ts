@@ -50,26 +50,32 @@ export class BowlingGameService {
   }
 
   // Processes a roll, updating the game state and scores.
-  roll(pins: number): void {
+  roll(pins?: number): void {
     const remainingPins = this.getRemainingPins();
-    if (pins > remainingPins) return;
-
+    let pinsToUse = pins;
+  
+    if (pinsToUse === undefined || pinsToUse === null) {
+      pinsToUse = Math.floor(Math.random() * (remainingPins + 1)); // Roll 0 to remainingPins
+    }
+  
+    if (pinsToUse > remainingPins) return;
+  
     const currentPlayer = this.getCurrentPlayer()();
     if (!currentPlayer || !currentPlayer.frames) return;
-
+  
     const currentFrameIndex = this.getCurrentFrame()() - 1;
     let currentFrame = currentPlayer.frames[currentFrameIndex];
     if (!currentFrame) return;
-
+  
     // Update the frame with the new roll.
-    currentFrame = this.frameService.updateFrame(currentFrame, pins);
-
+    currentFrame = this.frameService.updateFrame(currentFrame, pinsToUse);
+  
     // Update the player's frame in the game state.
     this.updatePlayerFrame(currentPlayer, currentFrameIndex, currentFrame);
-
+  
     // Recalculate scores.
     this.scoringService.updateScores();
-
+  
     // Advance the turn.
     this.gameState.advanceTurn(this.frameService);
   }

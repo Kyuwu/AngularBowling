@@ -1,57 +1,61 @@
 <div class="game-controls-container">
   @if (!gameStarted()) {
-    <div>
-      <h2>Start a new Retro Bowling Game</h2>
-      <mat-form-field appearance="fill">
-        <mat-label>Number of Players</mat-label>
-        <mat-select [(ngModel)]="numPlayers">
-          @for (num of [1, 2, 3, 4, 5, 6, 7, 8]; track num) {
-            <mat-option [value]="num">
-              {{ num }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+  <div>
+    <h2>Start a new Retro Bowling Game</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Number of Players</mat-label>
+      <mat-select [(ngModel)]="numPlayers">
+        @for (num of [1, 2, 3, 4, 5, 6, 7, 8]; track num) {
+        <mat-option [value]="num">
+          {{ num }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <div class="player-inputs">
       @if (displayedPlayerNames().length > 0) {
-        <div class="player-inputs">
-          @for (name of displayedPlayerNames(); track name; let i = $index) {
-            <div class="player-input">
-              <mat-form-field appearance="fill">
-                <mat-label>{{ name }}</mat-label>
-                <input matInput [(ngModel)]="playerNames()[i]" placeholder="Enter name" />
-              </mat-form-field>
-            </div>
-          }
-        </div>
+
+      @for (name of displayedPlayerNames(); track name; let i = $index) {
+      <div class="player-input">
+        <mat-form-field appearance="fill">
+          <mat-label>{{ name }}</mat-label>
+          <input matInput [(ngModel)]="playerNames()[i]" placeholder="Enter name" />
+        </mat-form-field>
+      </div>
       }
-      <button mat-raised-button color="primary" (click)="startGame()" [disabled]="!allNamesFilled()">
-        Start Game
-      </button>
+      }
     </div>
+    <button mat-raised-button color="primary" (click)="startGame()"
+      [disabled]="displayedPlayerNames().length === 0 || !allNamesFilled()">
+      Start Game
+    </button>
+  </div>
   }
 
   @if (gameStarted() && !gameOver()) {
-    <div>
-      <h2>{{ currentPlayer()?.name }}'s Turn (Frame {{ currentFrame() }})</h2>
-      <app-bowling-field [remainingPins]="remainingPins()"></app-bowling-field>
-      <p>Remaining Pins: {{ remainingPins() }}</p>
-      <div class="roll-buttons">
-        @for (pins of possiblePins; track pins) {
-          <button mat-raised-button (click)="roll(pins)"
-            [disabled]="isRollDisabled(pins)">
-            {{ pins }}
-          </button>
-        }
-      </div>
+  <div>
+    <h2>{{ currentPlayer()?.name }}'s Turn (Frame {{ currentFrame() }})</h2>
+    <app-bowling-field [remainingPins]="remainingPins()"></app-bowling-field>
+    <p>Remaining Pins: {{ remainingPins() }}</p>
+    <div class="roll-buttons">
+      @for (pins of possiblePins; track pins) {
+      <button mat-raised-button (click)="roll(pins)" [disabled]="isRollDisabled(pins)" tabindex="0">
+        {{ pins }}
+      </button>
+      }
+      <button mat-raised-button (click)="roll()" tabindex="0">
+        Random
+      </button>
     </div>
+  </div>
   }
 
   @if (gameOver()) {
-    <div>
-      <h2>Game Over!</h2>
-      <button mat-raised-button color="primary" (click)="resetGame()">
-        Play Again
-      </button>
-    </div>
+  <div>
+    <h2>Game Over!</h2>
+    <button mat-raised-button color="primary" (click)="resetGame()">
+      Play Again
+    </button>
+  </div>
   }
 </div>
